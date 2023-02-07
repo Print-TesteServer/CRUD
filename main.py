@@ -1,6 +1,10 @@
 # Tkinter
+from cgitb import text
 from tkinter import *
+from tkinter import font
 from tkinter import ttk
+from tkinter import messagebox
+
 from tkcalendar import Calendar, DateEntry
 
 # Importação
@@ -35,15 +39,42 @@ frame_baixo.grid(row=1, column=0, sticky=NSEW, padx=0, pady=1)
 frame_direita = Frame(janela, width=1280, height=465, bg=co1, relief='flat')
 frame_direita.grid(row=0, column=1, rowspan=2, padx=1, sticky=NSEW)
 
-# Configurando Interface
-
 # Label Cima
-app_nome = Label(frame_cima,text='Formulário de Consultoria', anchor=NW, font=('Arial 14 bold'),
+app_nome = Label(frame_cima,text='Formulário de Consultoria', anchor=NW, font=('Arial 14 bold'), # Configurando Interface
                   bg=co2, fg=co1, relief='flat')
 app_nome.place(x=38, y=17)
 
-# Nome
-l_nome = Label(frame_baixo,text='Nome', anchor=NW, font=('Arial 12 bold'),
+# Função Inserir
+def Inserir_info():
+    nome = e_nome.get()
+    email = e_email.get()
+    telefone = e_telefone.get()
+    data = e_data.get()
+    estado = e_estado.get()
+    sobre = e_sobre.get()
+
+    lista = [nome, email, telefone, data, estado, sobre]
+
+    if nome=='':
+        messagebox.showerror('ERROR','O nome não pode ser vazio.')
+    else:
+        Inserir(lista)
+        messagebox.showinfo('Sucesso','Os dados foram inseridos com Sucesso!')
+
+        e_nome.delete(0,'end')
+        e_email.delete(0,'end')
+        e_telefone.delete(0,'end')
+        e_data.delete(0,'end')
+        e_estado.delete(0,'end')
+        e_sobre.delete(0,'end')
+
+    for widget in frame_direita.winfo_children():
+        widget.destroy()
+
+    mostrar()
+
+# Label Baixo
+l_nome = Label(frame_baixo,text='Nome', anchor=NW, font=('Arial 12 bold'), # Nome
                   bg=co0, fg=co4, relief='flat')
 l_nome.place(x=10, y=15)
 e_nome = Entry(frame_baixo, width=51, justify='left', relief='solid')
@@ -85,7 +116,7 @@ e_sobre = Entry(frame_baixo, width=51, justify='left', relief='solid')
 e_sobre.place(x=10, y=295)
 
 # Botão Inserir
-b_inserir = Button(frame_baixo,text='Inserir', width=8, font=('Arial 12 bold'),
+b_inserir = Button(frame_baixo, command=Inserir_info , text='Inserir', width=8, font=('Arial 12 bold'),
                    bg=co6, fg=co1, relief='raised', overrelief='ridge')
 b_inserir.place(x=10,y=335)
 

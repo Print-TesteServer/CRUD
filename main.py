@@ -1,11 +1,9 @@
 # Tkinter
-from cgitb import text
 from tkinter import *
-from tkinter import font
 from tkinter import ttk
 from tkinter import messagebox
 
-from tkcalendar import Calendar, DateEntry
+from tkcalendar import DateEntry
 
 # Importação
 from view import *

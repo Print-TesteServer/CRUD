@@ -114,23 +114,40 @@ def Atualizar_info():
         else:
             Atualizar(lista)
             messagebox.showinfo('Sucesso', 'Os dados foram atualizados com Sucesso!')
-
             e_nome.delete(0, 'end')
             e_email.delete(0, 'end')
             e_telefone.delete(0, 'end')
             e_data.delete(0, 'end')
             e_estado.delete(0, 'end')
             e_sobre.delete(0, 'end')
-
         for widget in frame_direita.winfo_children():
             widget.destroy()
-
         mostrar()
 
     # Botão Atualizar
     b_confirmar = Button(frame_baixo, command=Update, text='Confirmar', width=8, font=('Arial 10 bold'),
                              bg=co2, fg=co1, relief='raised', overrelief='ridge')
     b_confirmar.place(x=128, y=370)
+
+# Função Deletar
+def Deletar_info():
+    try:
+        treev_dados = tree.focus()
+        treev_dicionario = tree.item(treev_dados)
+        tree_lista = treev_dicionario['values']
+        valor = tree_lista[0]
+
+        Deletar([valor])
+
+        messagebox.showinfo('SUCESSO', 'Os dados foram deletados com Sucesso!')
+
+        for widget in frame_direita.winfo_children():
+            widget.destroy()
+
+        mostrar()
+
+    except IndexError:
+        messagebox.showerror('ERROR', 'Selecione um dos dados na tabela')
 
 # Label Baixo
 l_nome = Label(frame_baixo,text='Nome', anchor=NW, font=('Arial 12 bold'), # Nome
@@ -185,7 +202,7 @@ b_atualizar = Button(frame_baixo,command=Atualizar_info,text='Atualizar', width=
 b_atualizar.place(x=120,y=335)
 
 # Botão Deletar
-b_deletar = Button(frame_baixo,text='Deletar', width=8, font=('Arial 12 bold'),
+b_deletar = Button(frame_baixo,command=Deletar_info, text='Deletar', width=8, font=('Arial 12 bold'),
                    bg=co7, fg=co1, relief='raised', overrelief='ridge')
 b_deletar.place(x=231,y=335)
 

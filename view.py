@@ -30,13 +30,10 @@ def Atualizar(i):
         cursor = conect.cursor()
         query = "UPDATE formulario SET nome=?, email=?, telefone=?,dia_em=?, estado=?, assunto=? WHERE id=?"
         cursor.execute(query, i)
-'''
-# Deletar
-def Deletar():
-    lista = [1]
 
+# Deletar
+def Deletar(i):
     with conect:
         cursor = conect.cursor()
         query = "DELETE FROM formulario WHERE id=?"
-        cursor.execute(query, lista)
-'''
+        cursor.execute(query, i)

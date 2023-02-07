@@ -7,5 +7,5 @@ conect = lite.connect('data.db')
 # Tabela
 with conect:
     cursor = conect.cursor()
-    cursor.execute("CREATE TABLE formulario(id INTEGER PRIMARY KEY AUTOINCOREMENT,"
+    cursor.execute("CREATE TABLE formulario(id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     "nome TEXT, email TEXT, telefone TEXT, dia_em DATE, estado TEXT, assunto TEXT) ")

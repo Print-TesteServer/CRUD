@@ -5,33 +5,41 @@ import sqlite3 as lite
 conect = lite.connect('data.db')
 
 # Inserir
-lista = [ 'Joao Futi Muanda', 'joao@mail.com', 123456789, "12/19/2010", 'Normal', 'gostaria de o consultar pessoalmente']
-
-with conect:
-    cursor = conect.cursor()
-    query = "INSERT INTO formulario(nome, email, telefone, dia_em, estado, assunto) VALUES (?,?,?,?,?,?)"
-    cursor.execute(query, lista)
+def Inserir(i):
+    with conect:
+        cursor = conect.cursor()
+        query = "INSERT INTO formulario(nome, email, telefone, dia_em, estado, assunto) VALUES (?,?,?,?,?,?)"
+        cursor.execute(query, i)
 
 # Ler
-with conect:
-    cursor = conect.cursor()
-    query = "SELECT * FROM formulario"
-    cursor.execute(query)
-    info = cursor.fetchall()
-    print(info)
+def Ler():
+    lista = []
+    with conect:
+        cursor = conect.cursor()
+        query = "SELECT * FROM formulario"
+        cursor.execute(query)
+        info = cursor.fetchall()
 
+        for i in info:
+            lista.append(i)
+        return lista
+
+'''
 # Atualizar
-lista = ['João', 1]
+def Atualizar():
+    lista = ['João', 1]
 
-with conect:
-    cursor = conect.cursor()
-    query = "UPDATE formulario SET nome=? WHERE id=?"
-    cursor.execute(query, lista)
+    with conect:
+        cursor = conect.cursor()
+        query = "UPDATE formulario SET nome=? WHERE id=?"
+        cursor.execute(query, lista)
 
 # Deletar
-lista = [1]
+def Deletar():
+    lista = [1]
 
-with conect:
-    cursor = conect.cursor()
-    query = "DELETE FROM formulario WHERE id=?"
-    cursor.execute(query, lista)
+    with conect:
+        cursor = conect.cursor()
+        query = "DELETE FROM formulario WHERE id=?"
+        cursor.execute(query, lista)
+'''

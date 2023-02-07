@@ -9,6 +9,7 @@ from tkcalendar import Calendar, DateEntry
 
 # Importação
 from view import *
+global tree
 
 # Cores
 co0 = "#f0f3f5"  # Preta
@@ -73,6 +74,64 @@ def Inserir_info():
 
     mostrar()
 
+# Função Atualizar
+def Atualizar_info():
+    try:
+        treev_dados = tree.focus()
+        treev_dicionario = tree.item(treev_dados)
+        tree_lista = treev_dicionario['values']
+        valor = tree_lista[0]
+
+        e_nome.delete(0, 'end')
+        e_email.delete(0, 'end')
+        e_telefone.delete(0, 'end')
+        e_data.delete(0, 'end')
+        e_estado.delete(0, 'end')
+        e_sobre.delete(0, 'end')
+
+        e_nome.insert(0, tree_lista[1])
+        e_email.insert(0, tree_lista[2])
+        e_telefone.insert(0, tree_lista[3])
+        e_data.insert(0, tree_lista[4])
+        e_estado.insert(0, tree_lista[5])
+        e_sobre.insert(0, tree_lista[6])
+
+    except IndexError:
+        messagebox.showerror('ERROR', 'Selecione um dos dados na tabela')
+
+    def Update():
+        nome = e_nome.get()
+        email = e_email.get()
+        telefone = e_telefone.get()
+        data = e_data.get()
+        estado = e_estado.get()
+        sobre = e_sobre.get()
+
+        lista = [nome, email, telefone, data, estado, sobre, valor]
+
+        if nome == '':
+            messagebox.showerror('ERROR', 'O nome não pode ser vazio.')
+        else:
+            Atualizar(lista)
+            messagebox.showinfo('Sucesso', 'Os dados foram atualizados com Sucesso!')
+
+            e_nome.delete(0, 'end')
+            e_email.delete(0, 'end')
+            e_telefone.delete(0, 'end')
+            e_data.delete(0, 'end')
+            e_estado.delete(0, 'end')
+            e_sobre.delete(0, 'end')
+
+        for widget in frame_direita.winfo_children():
+            widget.destroy()
+
+        mostrar()
+
+    # Botão Atualizar
+    b_confirmar = Button(frame_baixo, command=Update, text='Confirmar', width=8, font=('Arial 10 bold'),
+                             bg=co2, fg=co1, relief='raised', overrelief='ridge')
+    b_confirmar.place(x=128, y=370)
+
 # Label Baixo
 l_nome = Label(frame_baixo,text='Nome', anchor=NW, font=('Arial 12 bold'), # Nome
                   bg=co0, fg=co4, relief='flat')
@@ -121,7 +180,7 @@ b_inserir = Button(frame_baixo, command=Inserir_info , text='Inserir', width=8, 
 b_inserir.place(x=10,y=335)
 
 # Botão Atualizar
-b_atualizar = Button(frame_baixo,text='Atualizar', width=8, font=('Arial 12 bold'),
+b_atualizar = Button(frame_baixo,command=Atualizar_info,text='Atualizar', width=8, font=('Arial 12 bold'),
                    bg=co2, fg=co1, relief='raised', overrelief='ridge')
 b_atualizar.place(x=120,y=335)
 
@@ -132,6 +191,8 @@ b_deletar.place(x=231,y=335)
 
 # Frame Direita
 def mostrar():
+    global tree
+
     lista = Ler()
 
     # Lista Cabeçario

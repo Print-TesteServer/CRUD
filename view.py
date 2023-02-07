@@ -24,16 +24,13 @@ def Ler():
             lista.append(i)
         return lista
 
-'''
 # Atualizar
-def Atualizar():
-    lista = ['João', 1]
-
+def Atualizar(i):
     with conect:
         cursor = conect.cursor()
-        query = "UPDATE formulario SET nome=? WHERE id=?"
-        cursor.execute(query, lista)
-
+        query = "UPDATE formulario SET nome=?, email=?, telefone=?,dia_em=?, estado=?, assunto=? WHERE id=?"
+        cursor.execute(query, i)
+'''
 # Deletar
 def Deletar():
     lista = [1]
